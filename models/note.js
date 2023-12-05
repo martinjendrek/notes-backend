@@ -1,24 +1,10 @@
 const mongoose = require('mongoose')
-mongoose.set('strictQuery',false)
-
-// DO NOT SAVE YOUR PASSWORD TO GITHUB!!
-// `mongodb+srv://martinjendrek1:WhT4t5fo9R37sqeB@cluster0.k57jcos.mongodb.net/noteApp?retryWrites=true&w=majority`
-
-const url = process.env.MONGODB_URI
-console.log('connecting to', url)
-
-mongoose.connect(url).then(result=>{
-    console.log('connected to MongoDB')
-})
-.catch((error)=>{
-    console.log('error connecting to MongoDB', error.message);
-})
 
 const noteSchema = new mongoose.Schema({
   content: {
     type: String,
-    minLength: 5,
-    required: true
+    required: true,
+    minlength: 5
   },
   important: Boolean,
 })
@@ -30,4 +16,5 @@ noteSchema.set('toJSON', {
     delete returnedObject.__v
   }
 })
+
 module.exports = mongoose.model('Note', noteSchema)
